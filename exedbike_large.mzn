@@ -12,14 +12,13 @@
 %   minizinc --solver HiGHS exedbike_large.mzn large.dzn
 % (données générées par generate_instance.py — cf. corrigé pour les chiffres)
 % ============================================================================
-
-int: n;                          % nombre de variantes produites (SKUs)
-int: m;                          % nombre de ressources partagées
-array[1..n] of float: marge;     % marge unitaire (EUR) par variante
-array[1..m] of float: capacite;  % disponibilité hebdomadaire par ressource
+int: n;                            % nombre de variantes produites (SKUs)
+int: m;                            % nombre de ressources partagées
+array[1..n] of float: marge;       % marge unitaire (EUR) par variante
+array[1..m] of float: capacite;    % disponibilité hebdomadaire par ressource
 array[1..n, 1..m] of float: usage; % usage[i,j] = conso. de la ressource j par unité de i
 
-array[1..n] of var 0.0..100000.0: x;  % quantité produite de chaque variante
+array[1..n] of var 0.0..100000.0: x; % quantité produite de chaque variante
 
 constraint forall(j in 1..m) (
   sum(i in 1..n)(usage[i,j] * x[i]) <= capacite[j]
